@@ -1,0 +1,105 @@
+<div class="page-header">
+    <h1>Application Configuration <small ng-controller="applicationConfigCtrl">{{name}}</small></h1>
+</div>
+<form class="form-horizontal" ng-controller="applicationConfigCtrl">
+
+    <div class="form-group">
+        <label for="label-config-name" class="control-label col-xs-2">Name</label>
+        <div class="col-xs-10">
+            <input type="text" class="form-control" placeholder="unknown" aria-describedby="label-config-name" ng-model="data.name">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="label-config-capability" class="control-label col-xs-2">Capability</label>
+        <div class="col-xs-10">
+            <input type="text" class="form-control" placeholder="unknown" aria-describedby="label-config-capability" ng-model="data.capability">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="label-config-encoding" class="control-label col-xs-2">Default character encoding</label>
+        <div class="col-xs-10">
+            <input type="text" class="form-control" placeholder="unknown" aria-describedby="label-config-encoding" ng-model="data.default_charset">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="label-config-protection" class="control-label col-xs-2">Application mode</label>
+        <div class="col-xs-10">
+            <input bs-switch ng-model="data.protected" type="checkbox" data-on-text="Protection" data-off-text="Detection">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="label-config-protection" class="control-label col-xs-2">Block traffic</label>
+        <div class="col-xs-10">
+            <input bs-switch ng-model="data.block_traffic" type="checkbox" data-on-color="danger" data-off-color="success">
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="label-config-protection" class="control-label col-xs-2">Bypass ruleset</label>
+        <div class="col-xs-10">
+            <input bs-switch ng-model="data.bypass_ruleset" type="checkbox" data-on-color="danger" data-off-color="success">
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <label for="label-config-reduced-logging-hosts" class="control-label col-xs-2">Reduced logging hosts</label>
+        <div class="col-xs-10">
+            <!-- host search -->
+            <div class="input-group">
+                <span class="input-group-addon" id="hostnames-search-addon"><span class="glyphicon glyphicon-search"></span></span>
+                <input type="search" class="form-control" placeholder="Search hostname..." aria-described-by="hostnames-search-addon" ng-model="hostnameSearch">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-xs-offset-2 col-xs-10">
+            <!-- add hostname -->
+            <div class="input-group">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button" ng-click="addHostname()">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </button>
+                </span>
+                <input type="text" class="form-control" placeholder="New hostname..." ng-model="hostnameAdd">
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-xs-offset-2 col-xs-10">
+            <!-- table -->
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Hostname</th>
+                        <th>Delete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="host in data.reduced_logging_hosts | filter: hostnameSearch as results">
+                        <td>{{host}}</td>
+                        <td>
+                            <button type="button" class="btn btn-default btn-xs" ng-click="removeHostname($index)">
+                                <span class="glyphicon glyphicon-remove"></span> Remove
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-xs-offset-2 col-xs-10">
+            <button class="btn btn-primary btn-lg" type="button" ng-click="saveChanges()" ng-disabled="! changes">Save changes</button>
+            <button class="btn btn-default btn-lg" type="button" ng-click="revertChanges()" ng-disabled="! changes">Revert changes</button>
+        </div>
+    </div>
+
+</form>

@@ -1,0 +1,60 @@
+<!doctype html>
+<html ng-app="saf">
+  <head>
+    <meta charset="utf-8">
+    <title>SAF Test Page</title>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/bootstrap-switch.min.css">
+    <link rel="stylesheet" href="css/custom.css">
+
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/bootstrap-switch.js"></script>
+    <script src="js/angular.js"></script>
+    <script src="js/angular-route.min.js"></script>
+    <script src="js/angular-bootstrap-switch.min.js"></script>
+    <script src="js/ng-breadcrumbs.min.js"></script>
+
+  </head>
+
+  <body role="document" ng-controller="safMainCtrl">
+
+    <div class="container-fluid" role="main">
+        <nav class="navbar navbar-default navbar-fixed-top navbar-inverse">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#/">
+                        <img alt="Brocade" height="100%" src="brocade.png">
+                    </a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li><a href="#/applications">Applications</a></li>
+                    <li><a href="#">Mapping</a></li>
+                    <li><a href="#">Cluster</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a>Sign out</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <ol class="breadcrumb">
+            <li ng-repeat="breadcrumb in breadcrumbs.get() track by breadcrumb.path" ng-class="{ active: $last }">
+                <a ng-if="!$last" ng-href="#{{ breadcrumb.path }}" ng-bind="breadcrumb.label"></a>
+                <span ng-if="$last" ng-bind="breadcrumb.label"></span>
+            </li>
+        </ol>
+
+        <div ng-view></div>
+
+        <!-- modules -->
+        <script src="js/saf.js"></script>
+        <script src="modules/home/home.js"></script>
+        <script src="modules/applications/applications.js"></script>
+        <script src="modules/application/config/config.js"></script>
+
+    </div>
+  </body>
+</html>
